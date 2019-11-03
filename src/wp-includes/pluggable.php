@@ -1215,6 +1215,7 @@ if ( ! function_exists( 'wp_redirect' ) ) :
 	 *
 	 * @since 1.5.1
 	 * @since 5.1.0 The `$x_redirect_by` parameter was added.
+	 * @since 5.3.0 On invalid status codes, wp_die() is called.
 	 *
 	 * @global bool $is_IIS
 	 *
@@ -1250,7 +1251,7 @@ if ( ! function_exists( 'wp_redirect' ) ) :
 			return false;
 		}
 
-		if ( 300 >= $status && 400 < $status ) {
+		if ( 300 < $status || 400 >= $status ) {
 			wp_die( __( 'HTTP redirect status code must be a redirection code, 3xx.' ) );
 		}
 
